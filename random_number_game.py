@@ -56,3 +56,44 @@ print "Correct! You took (number of attempted guesses) guesses."
 #End of game - exit the for loop
 
 """
+
+from random import randint
+from itertools import count
+
+print("Hello human, what is your name? ")
+myName = input()
+
+print("Quick question though, what do you want as a reward?")
+response = input()
+
+print("Well, " + myName + ", I want to play a game." + 
+" I am thinking of a number that you need to solve for." +
+" For each incorrect answer, you will lose $1 from your checking account. I know where you live...")
+
+def numberToGuess(minimum, maximum):
+    numberToGuess = randint(minimum, maximum)
+    for tries in count(1):
+        try:
+            userGuess = int(input("Guess a number between {} and {}: ".format(minimum, maximum)))
+            if userGuess < 0:
+                print("You entered an invalid number!" + 
+                " No numbers less than 0. Try again.")
+            elif userGuess > 100:
+                print("You entered an invalid number!" +
+                " No numbers greater than 100. Try again.")
+            elif userGuess > numberToGuess:
+                print ("Too high! Try again.")
+            elif userGuess < numberToGuess:
+                print ("Too low! Try again.")
+            elif userGuess == numberToGuess:
+                return tries
+        except ValueError:
+            print("Your guess was not a number. Try again.")  
+    
+print ("Correct! You were pretty fast " + myName + ". You took {} guesses to get the right answer! However, you lost the same amount of cash in guesses. ".format(numberToGuess(0, 100)))
+
+print("Congratulations, you have received " + response)
+
+print("Your " + response + " is running out. Help save it before it is too late!!")
+
+print("Your " + response + " went missing in action. Better luck next time..")
